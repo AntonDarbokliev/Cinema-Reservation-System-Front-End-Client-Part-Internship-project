@@ -1,0 +1,30 @@
+<div class="register flex flex-col items-center justify-center">
+  <h1 class="font-bold">Register</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <app-input-field
+      [label]="placeHolders.firstName"
+      formControlName="firstName"
+    ></app-input-field>
+    <app-input-field
+      [label]="placeHolders.lastName"
+      formControlName="lastName"
+    ></app-input-field>
+    <app-input-field
+      [label]="placeHolders.email"
+      formControlName="email"
+      type="email"
+    ></app-input-field>
+    <app-input-field
+      [label]="placeHolders.password"
+      formControlName="password"
+      type="password"
+    ></app-input-field>
+    <app-input-field
+      [label]="placeHolders.confirmPassword"
+      formControlName="confirmPassword"
+      type="password"
+    ></app-input-field>
+    <app-button [label]="buttonLabel"></app-button>
+    <pre>{{ registerForm.value | json }}</pre>
+  </form>
+</div>
