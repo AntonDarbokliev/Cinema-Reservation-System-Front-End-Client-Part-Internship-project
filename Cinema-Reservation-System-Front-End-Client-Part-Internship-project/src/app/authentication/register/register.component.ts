@@ -8,11 +8,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { AuthenticationService } from '../shared/authentication.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ButtonComponent, InputFieldComponent, ReactiveFormsModule, JsonPipe],
+  imports: [
+    ButtonComponent,
+    InputFieldComponent,
+    ReactiveFormsModule,
+    JsonPipe,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -25,22 +31,60 @@ export class RegisterComponent {
     password: 'Password',
     confirmPassword: 'Confirm Password',
   };
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+  ) {}
 
   registerForm: FormGroup = new FormGroup({});
-
-  constructor(private fb: FormBuilder) {}
+  formSubmitted = false;
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      firstName: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(2)]),
+      ],
+      lastName: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(2)]),
+      ],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(5)]),
+      ],
+      confirmPassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(5)]),
+      ],
     });
   }
 
   onSubmit() {
-    alert('Form Submitted');
+    this.formSubmitted = true;
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe();
+    }
+  }
+
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registerForm.get('lastName');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
   }
 }
