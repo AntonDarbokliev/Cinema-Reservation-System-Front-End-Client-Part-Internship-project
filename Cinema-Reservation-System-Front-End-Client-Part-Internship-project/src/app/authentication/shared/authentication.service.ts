@@ -48,6 +48,8 @@ export class AuthenticationService {
         tap((response) => {
           const user: User = jwtDecode(response.access_token);
           localStorage.setItem('token', response.access_token);
+          this.router.navigate(['/program']);
+
           this.userSubject.next(user);
         }),
       );
