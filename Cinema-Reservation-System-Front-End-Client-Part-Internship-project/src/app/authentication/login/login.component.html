@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="register flex flex-col items-center justify-center">
+  <h1 class="font-bold">Login</h1>
+  <form class="flex flex-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <app-input-field
+        label="Email"
+        type="email"
+        formControlName="email"
+      ></app-input-field>
+      @if (
+        email?.invalid && (email?.dirty || email?.touched || formSubmitted)
+      ) {
+        @if (email?.hasError("required")) {
+          <p>Email is required</p>
+        }
+        @if (email?.hasError("email")) {
+          <p>Email is invalid</p>
+        }
+      }
+    </div>
+
+    <div>
+      <app-input-field
+        label="Password"
+        type="password"
+        formControlName="password"
+      ></app-input-field>
+      @if (
+        password?.invalid &&
+        (password?.dirty || password?.touched || formSubmitted)
+      ) {
+        @if (password?.hasError("required")) {
+          <p>Password is required</p>
+        }
+        @if (password?.hasError("minlength")) {
+          <p>Password must be at least 5 characters long</p>
+        }
+      }
+    </div>
+
+    <app-button label="Login"></app-button>
+  </form>
+</div>
