@@ -6,6 +6,5 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './main-navigation.component.html',
-  styleUrl: './main-navigation.component.css',
 })
 export class MainNavigationComponent {}
