@@ -7,18 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 import { AuthenticationService } from '../shared/authentication.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    ButtonComponent,
-    InputFieldComponent,
-    ReactiveFormsModule,
-    JsonPipe,
-  ],
+  imports: [ButtonComponent, InputFieldComponent, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
