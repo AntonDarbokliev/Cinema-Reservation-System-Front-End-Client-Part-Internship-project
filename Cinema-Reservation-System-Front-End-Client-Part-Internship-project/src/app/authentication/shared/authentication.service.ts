@@ -7,6 +7,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { User } from './user-model';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ToastService } from '../../toasts/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class AuthenticationService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private toastService: ToastService,
   ) {
     const savedToken = localStorage.getItem('token');
     if (savedToken) {
@@ -30,6 +32,10 @@ export class AuthenticationService {
   register(createUser: CreateUser) {
     return this.http.post(`${this.apiUrl}/auth/register`, createUser).pipe(
       tap(() => {
+        this.toastService.addToast({
+          message: 'Registered successfully!',
+          type: 'success',
+        });
         this.router.navigate(['/login']);
       }),
     );
