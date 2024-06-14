@@ -38,12 +38,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.formSubmitted = true;
     if (this.loginForm.valid) {
-      this.authService
-        .login(this.loginForm.value)
-        .subscribe((data: { access_token: string }) => {
-          localStorage.setItem('token', data['access_token']);
-          
-        });
+      this.authService.login(this.loginForm.value).subscribe();
     }
   }
 
