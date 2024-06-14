@@ -45,4 +45,13 @@ export class ToastComponent {
   @HostBinding('@toastState') toastAnimation = true;
 
   @Input() toast: Toast = { message: '', type: 'error' };
+
+  getToastClass(): string {
+    if (this.toast.type == 'error') {
+      return 'bg-red-700 text-white';
+    } else if (this.toast.type == 'success') {
+      return 'bg-green-700 text-white';
+    }
+    return '';
+  }
 }

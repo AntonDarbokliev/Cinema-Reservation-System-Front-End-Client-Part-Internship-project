@@ -1,10 +1,12 @@
 <div
   id="toast-simple"
-  class="space-x dark:text-whtie mb-5 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-white p-4 text-white shadow rtl:space-x-reverse rtl:divide-x-reverse dark:divide-white dark:bg-red-700"
+  class="space-x dark:text-whtie mb-5 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-white p-4 text-white shadow rtl:space-x-reverse rtl:divide-x-reverse dark:divide-white"
+  [class]="getToastClass()"
   role="alert"
 >
   <svg
-    class="h-5 w-5 rotate-45 text-red-600 dark:text-red-500"
+    [class]="getToastClass()"
+    class="h-5 w-5 rotate-45"
     aria-hidden="true"
     fill="none"
     viewBox="0 0 18 20"
