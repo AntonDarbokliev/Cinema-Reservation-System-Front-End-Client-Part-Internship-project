@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { InputFieldComponent } from '../../shared/input-field/input-field.component';
+import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../authentication/shared/authentication.service';
 import { User } from '../../authentication/shared/user-model';
