@@ -27,8 +27,6 @@ export class MovieWithProjectionsComponent implements OnInit {
   ngOnInit(): void {
     if (this.movie) {
       for (const projection of this.movie?.projections) {
-        console.log('projection: ', projection);
-
         if (
           !this.allProjectionTypes.includes(projection.projectionType) &&
           projection.status !== ProjectionStatus.PROJECTION_ENDED
