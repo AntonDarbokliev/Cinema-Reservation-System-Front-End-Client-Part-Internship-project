@@ -1,0 +1,8 @@
+<div class="dropdown-container text-black">
+  <select (change)="onSelectionChange($event)">
+    <option value="" disabled selected>{{ placeholder }}</option>
+    @for (option of options; track option) {
+      <option [value]="option.value">{{ option.text }}</option>
+    }
+  </select>
+</div>
