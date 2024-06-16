@@ -7,7 +7,9 @@
     <div class="right-side-nav ml-auto mr-36 flex items-center justify-center">
       <div class="location hidden md:flex">
         <fa-icon [icon]="faLocationDot" size="lg" class="mr-1"></fa-icon>
-        <p class="mr-4">{{ this.cinemaService.cinema.getValue().name }} |</p>
+        @if (selectedCinema !== null) {
+          <p class="mr-4">{{ selectedCinema.name }} |</p>
+        }
         <app-dropdown
           [options]="options"
           placeholder="Select an option"
@@ -16,7 +18,11 @@
       </div>
 
       <p class="ml-4">
-         <fa-icon [icon]="faMagnifyingGlass" size="lg" class="ml-3 mr-10 md:mr-0"></fa-icon>
+        <fa-icon
+          [icon]="faMagnifyingGlass"
+          size="lg"
+          class="ml-3 mr-10 md:mr-0"
+        ></fa-icon>
       </p>
 
       <app-input-field class="hidden md:block"></app-input-field>

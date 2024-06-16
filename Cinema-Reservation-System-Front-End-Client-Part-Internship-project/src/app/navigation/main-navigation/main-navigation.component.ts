@@ -9,7 +9,7 @@ import { DropdownComponent } from '../../shared/components/dropdown/dropdown.com
 import {
   faLocationDot,
   faMagnifyingGlass,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -32,6 +32,7 @@ export class MainNavigationComponent {
   faLocationDot = faLocationDot;
   faMagnifyingGlass = faMagnifyingGlass;
   faUser = faUser;
+  selectedCinema: Cinema | null = null;
 
   constructor(
     private authService: AuthenticationService,
@@ -49,6 +50,9 @@ export class MainNavigationComponent {
       this.cinemas.forEach((cinema) => {
         this.options.push({ value: cinema._id, text: cinema.name });
       });
+    });
+    this.cinemaService.cinema.subscribe((cinema) => {
+      this.selectedCinema = cinema;
     });
   }
 
