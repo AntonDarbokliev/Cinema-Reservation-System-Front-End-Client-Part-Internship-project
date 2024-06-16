@@ -3,13 +3,25 @@
     class="main-navigation-top flex h-20 w-full items-center justify-center bg-black text-white"
   >
     <div class="logo ml-36 mr-auto">Logo</div>
-    <div
-      class="right-side-nav ml-auto mr-36 flex items-center justify-center justify-self-end"
-    >
-      <p class="md:hidden">search icon</p>
+
+    <div class="right-side-nav ml-auto mr-36 flex items-center justify-center">
+      <div class="location hidden md:flex">
+        <fa-icon [icon]="faLocationDot" size="lg" class="mr-1"></fa-icon>
+        <p class="mr-4">{{ this.cinemaService.cinema.getValue().name }} |</p>
+        <app-dropdown
+          [options]="options"
+          placeholder="Select an option"
+          (selectionChange)="onDropdownSelectionChange($event)"
+        ></app-dropdown>
+      </div>
+
+      <p class="ml-4">
+         <fa-icon [icon]="faMagnifyingGlass" size="lg" class="ml-3 mr-10 md:mr-0"></fa-icon>
+      </p>
+
       <app-input-field class="hidden md:block"></app-input-field>
       @if (user) {
-        <p>user icon</p>
+        <fa-icon [icon]="faUser" size="2x" class="mr-1"></fa-icon>
       }
     </div>
   </div>
