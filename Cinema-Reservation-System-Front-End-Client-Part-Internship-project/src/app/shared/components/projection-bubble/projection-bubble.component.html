@@ -1,5 +1,8 @@
-<div
-  class="flex h-11 w-16 items-center justify-center rounded-lg bg-[var(--main-color)] text-xl font-semibold m-2"
->
-  {{ startTime }}
-</div>
+@if (projection) {
+  <div
+    class="m-2 flex h-11 w-16 items-center justify-center rounded-lg bg-[var(--main-color)] text-xl font-semibold"
+    (click)="redirectToReserve()"
+  >
+    {{ projection.startTime }}
+  </div>
+}
