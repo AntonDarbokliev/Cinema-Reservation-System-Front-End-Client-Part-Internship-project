@@ -1,0 +1,31 @@
+<div class="reserve-seat">
+  <div class="stages flex w-screen">
+    <div class="stage stage-style">
+      <p>1</p>
+      Seat selection
+    </div>
+    <div class="stage stage-style">
+      <p>2</p>
+      Sides selection
+    </div>
+    <div class="stage stage-style">
+      <p>3</p>
+      Summary
+    </div>
+  </div>
+
+  <div class="content flex">
+    @if (movie && projection) {
+      <div class="projection-info h-20 w-screen bg-black text-white flex items-center">
+        <div class="projection-info-wrapper ml-4">
+          <h1 class="font-bold text-lg">{{ movie.name }}</h1>
+          <p>{{projection.startDate.toString().substring(0,10)}} - {{projection.startTime}}</p>
+          <p>Hall {{projection.hall.name}} - {{projection.status}}</p>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="heading-div w-screen border-b p-4">
+    <h1 class="text-3xl font-bold">CHOOSE YOUR SEAT</h1>
+  </div>
+</div>
