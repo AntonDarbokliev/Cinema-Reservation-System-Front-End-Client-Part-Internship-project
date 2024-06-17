@@ -7,6 +7,7 @@ import { DropdownComponent } from '../../shared/components/dropdown/dropdown.com
 import { Cinema } from '../../shared/models/cinema.model';
 import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ProjectionType } from '../../shared/models/projection.model';
 
 @Component({
   selector: 'app-projections-list',
@@ -24,6 +25,8 @@ export class ProjectionsListComponent implements OnInit {
   movies: Movie[] = [];
   cinema: Cinema | null = null;
   date: FormControl = new FormControl('');
+  proejctionTypesOptions: { value: ProjectionType; text: string }[] = [];
+  selectedProjectionType: string = '';
 
   constructor(
     private projectionService: ProjectionService,
@@ -35,6 +38,7 @@ export class ProjectionsListComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeToDateChanges();
     this.initializeDate();
+    this.initializeProjectionTypeOptions();
     this.subscribeToCinemaChanges();
   }
 
@@ -47,14 +51,21 @@ export class ProjectionsListComponent implements OnInit {
   private subscribeToDateChanges(): void {
     this.date.valueChanges.subscribe((date) => {
       if (this.cinema) {
-        this.updateMovies(date);
+        if (this.selectedProjectionType !== '') {
+          this.updateMovies(
+            date,
+            this.selectedProjectionType as ProjectionType,
+          );
+        } else {
+          this.updateMovies(date);
+        }
       }
     });
   }
 
-  private updateMovies(date: string) {
+  private updateMovies(date: string, projectionType?: ProjectionType) {
     this.projectionService
-      .getMoviesWithProjections(date)
+      .getMoviesWithProjections(date, projectionType)
       .subscribe((movies) => {
         this.movies = movies.filter((movie) => movie.projections.length !== 0);
       });
@@ -67,5 +78,27 @@ export class ProjectionsListComponent implements OnInit {
         this.cinema = cinema;
       }
     });
+  }
+
+  private initializeProjectionTypeOptions() {
+    this.proejctionTypesOptions = [];
+    this.projectionService.getProjectionTypes().subscribe((projectionTypes) => {
+      projectionTypes.forEach((projectionType) => {
+        this.proejctionTypesOptions.push({
+          value: projectionType,
+          text: projectionType,
+        });
+      });
+    });
+  }
+
+  onProjectionTypeChange(selected: string) {
+    this.selectedProjectionType = selected;
+
+    if (selected == '') {
+      this.updateMovies(this.date.value);
+    } else {
+      this.updateMovies(this.date.value, selected as ProjectionType);
+    }
   }
 }
