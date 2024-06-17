@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Movie } from '../../shared/models/movie.model';
 import { Rating } from '../../shared/models/rating.model';
 import {
@@ -16,7 +22,7 @@ import { ProjectionBubbleComponent } from '../../shared/components/projection-bu
   templateUrl: './movie-with-projections.component.html',
   imports: [RatingBubbleComponent, ProjectionBubbleComponent],
 })
-export class MovieWithProjectionsComponent implements OnInit {
+export class MovieWithProjectionsComponent implements OnChanges {
   @Input() movie: Movie | null = null;
   allProjectionTypes: ProjectionType[] = [];
 
@@ -24,15 +30,20 @@ export class MovieWithProjectionsComponent implements OnInit {
     return prj.projectionType !== prjType;
   }
 
-  ngOnInit(): void {
-    if (this.movie) {
-      for (const projection of this.movie?.projections) {
-        if (
-          !this.allProjectionTypes.includes(projection.projectionType) &&
-          projection.status !== ProjectionStatus.PROJECTION_ENDED
-        ) {
-          this.allProjectionTypes.push(projection.projectionType);
-        }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['movie'] && this.movie) {
+      this.allProjectionTypes = [];
+      this.calculateProjectionTypes(this.movie);
+    }
+  }
+
+  private calculateProjectionTypes(movie: Movie) {
+    for (const projection of movie.projections) {
+      if (
+        !this.allProjectionTypes.includes(projection.projectionType) &&
+        projection.status !== ProjectionStatus.PROJECTION_ENDED
+      ) {
+        this.allProjectionTypes.push(projection.projectionType);
       }
     }
   }
