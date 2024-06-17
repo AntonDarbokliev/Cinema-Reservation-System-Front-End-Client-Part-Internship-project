@@ -15,9 +15,9 @@ export class ProjectionService {
     private cinemaService: CinemaService,
   ) {}
 
-  getMoviesWithProjections() {
+  getMoviesWithProjections(date?: string | Date) {
     return this.http.get<Movie[]>(
-      `${this.apiUrl}/movies/cinema/${this.cinemaService.cinema.getValue()._id}?projections=true`,
+      `${this.apiUrl}/movies/cinema/${this.cinemaService.cinema.getValue()._id}?projections=true${date ? `&date=${date}` : ''}`,
     );
   }
 }
