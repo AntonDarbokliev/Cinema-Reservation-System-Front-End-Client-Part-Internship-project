@@ -1,0 +1,107 @@
+<div class="register flex flex-col items-center justify-center">
+  <h1 class="font-bold">Register</h1>
+  <form
+    class="flex flex-col"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div>
+      <app-input-field
+        [label]="placeHolders.firstName"
+        formControlName="firstName"
+      ></app-input-field>
+
+      @if (
+        firstName?.invalid &&
+        (firstName?.dirty || firstName?.touched || formSubmitted)
+      ) {
+        @if (firstName?.hasError("required")) {
+          <p>First Name is required</p>
+        }
+        @if (firstName?.hasError("minlength")) {
+          <p>First Name must be at least 2 characters long</p>
+        }
+      }
+    </div>
+
+    <div>
+      <app-input-field
+        [label]="placeHolders.lastName"
+        formControlName="lastName"
+      ></app-input-field>
+
+      @if (
+        lastName?.invalid &&
+        (lastName?.dirty || lastName?.touched || formSubmitted)
+      ) {
+        @if (lastName?.hasError("required")) {
+          <p>Last Name is required</p>
+        }
+        @if (lastName?.hasError("minlength")) {
+          <p>Last Name must be at least 2 characters long</p>
+        }
+      }
+    </div>
+
+    <div>
+      <app-input-field
+        [label]="placeHolders.email"
+        formControlName="email"
+        type="email"
+      ></app-input-field>
+
+      @if (
+        email?.invalid && (email?.dirty || email?.touched || formSubmitted)
+      ) {
+        @if (email?.hasError("required")) {
+          <p>Email is required</p>
+        }
+        @if (email?.hasError("email")) {
+          <p>Invalid Email</p>
+        }
+      }
+    </div>
+
+    <div>
+      <app-input-field
+        [label]="placeHolders.password"
+        formControlName="password"
+        type="password"
+      ></app-input-field>
+
+      @if (
+        password?.invalid &&
+        (password?.dirty || password?.touched || formSubmitted)
+      ) {
+        @if (password?.hasError("required")) {
+          <p>Password is required</p>
+        }
+        @if (password?.hasError("minlength")) {
+          <p>Password must be at least 5 characters long</p>
+        }
+      }
+    </div>
+
+    <div>
+      <app-input-field
+        [label]="placeHolders.confirmPassword"
+        formControlName="confirmPassword"
+        type="password"
+      ></app-input-field>
+
+      @if (
+        confirmPassword?.invalid &&
+        (confirmPassword?.dirty || confirmPassword?.touched || formSubmitted)
+      ) {
+        @if (confirmPassword?.hasError("required")) {
+          <p>Confirm Password is required</p>
+        }
+        @if (confirmPassword?.hasError("minlength")) {
+          <p>Confrim Password must be at least 5 characters long</p>
+        }
+      }
+    </div>
+
+    <app-button [label]="buttonLabel"></app-button>
+  </form>
+</div>
