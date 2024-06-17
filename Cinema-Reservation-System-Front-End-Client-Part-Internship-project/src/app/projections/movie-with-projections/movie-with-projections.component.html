@@ -25,13 +25,15 @@
           <h1 class="mb-4 border-t-2 text-2xl font-semibold">
             {{ projectionType }}
           </h1>
-          @for (projection of movie.projections; track projection._id) {
-            @if (projection.projectionType == projectionType) {
-              <app-projection-bubble
-                [startTime]="projection.startTime"
-              ></app-projection-bubble>
+          <div class="projection-bubbles flex w-1/3 flex-wrap">
+            @for (projection of movie.projections; track projection._id) {
+              @if (projection.projectionType == projectionType) {
+                <app-projection-bubble
+                  [startTime]="projection.startTime"
+                ></app-projection-bubble>
+              }
             }
-          }
+          </div>
         </div>
       }
     </div>

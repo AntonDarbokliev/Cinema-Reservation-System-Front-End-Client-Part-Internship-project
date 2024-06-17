@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class DropdownComponent {
   @Input() options: { value: string; text: string }[] = [];
   @Input() placeholder = 'Select an option';
+  @Input() disableFirst = true;
   @Output() selectionChange = new EventEmitter<string>();
 
   onSelectionChange(event: Event) {

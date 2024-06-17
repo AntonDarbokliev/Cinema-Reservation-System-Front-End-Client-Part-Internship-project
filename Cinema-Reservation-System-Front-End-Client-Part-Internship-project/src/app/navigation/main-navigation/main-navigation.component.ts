@@ -57,7 +57,6 @@ export class MainNavigationComponent {
   }
 
   onDropdownSelectionChange(selected: string) {
-    console.log('Selected option:', selected);
     const cinemaToSet = this.cinemas.find((cinema) => cinema._id === selected);
     if (cinemaToSet) this.cinemaService.setCinema(cinemaToSet);
   }
