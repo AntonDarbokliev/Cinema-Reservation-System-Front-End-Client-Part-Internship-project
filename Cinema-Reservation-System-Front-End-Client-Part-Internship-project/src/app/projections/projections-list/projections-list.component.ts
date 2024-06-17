@@ -29,30 +29,41 @@ export class ProjectionsListComponent implements OnInit {
     private projectionService: ProjectionService,
     private cinemaService: CinemaService,
   ) {
-    // const today = new Date();
     this.date = new FormControl('');
   }
 
   ngOnInit(): void {
-    this.date.valueChanges.subscribe((date) => {
-      this.projectionService
-        .getMoviesWithProjections(date)
-        .subscribe((movies) => {
-          this.movies = movies;
-        });
-    });
+    this.subscribeToDateChanges();
+    this.initializeDate();
+    this.subscribeToCinemaChanges();
+  }
+
+  private initializeDate() {
     const date = new Date();
     const currentDate = date.toISOString().substring(0, 10);
-
     this.date.setValue(currentDate);
+  }
 
+  private subscribeToDateChanges(): void {
+    this.date.valueChanges.subscribe((date) => {
+      if (this.cinema) {
+        this.updateMovies(date);
+      }
+    });
+  }
+
+  private updateMovies(date: string) {
+    this.projectionService
+      .getMoviesWithProjections(date)
+      .subscribe((movies) => {
+        this.movies = movies;
+      });
+  }
+
+  private subscribeToCinemaChanges() {
     this.cinemaService.cinema.subscribe((cinema) => {
       if (cinema.address !== '') {
-        this.projectionService
-          .getMoviesWithProjections(this.date.value)
-          .subscribe((movies) => {
-            this.movies = movies;
-          });
+        this.updateMovies(this.date.value);
         this.cinema = cinema;
       }
     });
