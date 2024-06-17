@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -25,6 +25,8 @@ export class InputFieldComponent implements ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
+      console.log('writing new value: ', value);
+      
       this.value = value;
     }
   }
