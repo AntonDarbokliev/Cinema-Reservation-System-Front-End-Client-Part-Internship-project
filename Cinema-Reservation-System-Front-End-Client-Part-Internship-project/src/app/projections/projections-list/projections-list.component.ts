@@ -56,7 +56,7 @@ export class ProjectionsListComponent implements OnInit {
     this.projectionService
       .getMoviesWithProjections(date)
       .subscribe((movies) => {
-        this.movies = movies;
+        this.movies = movies.filter((movie) => movie.projections.length !== 0);
       });
   }
 

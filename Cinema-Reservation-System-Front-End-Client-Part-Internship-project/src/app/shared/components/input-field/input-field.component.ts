@@ -25,8 +25,6 @@ export class InputFieldComponent implements ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
-      console.log('writing new value: ', value);
-      
       this.value = value;
     }
   }

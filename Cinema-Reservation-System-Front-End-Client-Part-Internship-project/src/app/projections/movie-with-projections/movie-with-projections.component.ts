@@ -39,10 +39,7 @@ export class MovieWithProjectionsComponent implements OnChanges {
 
   private calculateProjectionTypes(movie: Movie) {
     for (const projection of movie.projections) {
-      if (
-        !this.allProjectionTypes.includes(projection.projectionType) &&
-        projection.status !== ProjectionStatus.PROJECTION_ENDED
-      ) {
+      if (!this.allProjectionTypes.includes(projection.projectionType)) {
         this.allProjectionTypes.push(projection.projectionType);
       }
     }
