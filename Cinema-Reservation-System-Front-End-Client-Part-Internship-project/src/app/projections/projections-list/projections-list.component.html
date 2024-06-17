@@ -1,35 +1,36 @@
-<div class="projections flex flex-col justify-center pt-28">
-  <div class="filters flex w-screen flex-col items-center border-b-2 shadow-md">
-    <div class="filters-wrapper w-3/6">
-      <h1 class="mb-3 text-4xl">Projections</h1>
-      <div class="row-one mb-3 flex justify-between">
-        <div class="cinema-wrapper">
-          <label>Cinema: </label>
-          <select name="cinema">
-            <option value="">Test address 1 bla bla</option>
-            <option value="">Test address 2 bla bla</option>
-            <option value="">Test address 3 bla bla</option>
-          </select>
+@if (cinema) {
+  <div class="projections flex flex-col justify-center pt-28">
+    <div
+      class="filters flex w-screen flex-col items-center border-b-2 shadow-md"
+    >
+      <div class="filters-wrapper w-3/6">
+        <h1 class="mb-3 text-4xl">Projections</h1>
+        <div class="row-one mb-3 flex flex-col">
+          <p class="font-bold">{{ cinema.name }}</p>
+          <p class="font-bold">{{ cinema.address }}</p>
         </div>
-      </div>
-      <div class="row-two flex justify-between pb-5">
-        <div class="date-wrapper">
-          <label>Date: </label>
-          <input type="date" />
-        </div>
-        <div class="projection-type-wrapper">
-          <label>Projection Type: </label>
-          <select name="projection-type" id="">
-            <option value="">2D</option>
-            <option value="">3D</option>
-          </select>
+        <div class="row-two flex justify-between pb-5">
+          <div class="date-wrapper">
+            <label>Date: </label>
+            <app-input-field [formControl]="date" type="date"></app-input-field>
+          </div>
+          <div class="projection-type-wrapper">
+            <label>Projection Type: </label>
+            <select name="projection-type" id="">
+              <option value="">Any</option>
+              <option value="">2D</option>
+              <option value="">3D</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
+    <div class="projections-list">
+      @for (movie of movies; track movie._id) {
+        <app-movie-with-projections
+          [movie]="movie"
+        ></app-movie-with-projections>
+      }
+    </div>
   </div>
-  <div class="projections-list">
-    @for(movie of movies; track movie._id) {
-      <app-movie-with-projections [movie]="movie"></app-movie-with-projections>
-    }
-  </div>
-</div>
+}
