@@ -8,7 +8,7 @@ export enum ReservationStatus {
 }
 
 export interface Reservation {
-  seat: Seat;
+  seat: string;
 
   seatRow: number;
 

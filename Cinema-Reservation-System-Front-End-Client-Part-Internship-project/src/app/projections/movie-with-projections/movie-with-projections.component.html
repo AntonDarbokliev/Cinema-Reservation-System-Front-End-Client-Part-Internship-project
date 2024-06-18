@@ -29,7 +29,7 @@
             @for (projection of movie.projections; track projection._id) {
               @if (projection.projectionType == projectionType) {
                 <app-projection-bubble
-                  [startTime]="projection.startTime"
+                  [projection]="projection"
                 ></app-projection-bubble>
               }
             }
