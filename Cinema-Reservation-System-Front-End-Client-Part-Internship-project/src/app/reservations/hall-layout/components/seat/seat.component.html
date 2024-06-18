@@ -1,0 +1,17 @@
+@if (seat) {
+  @if (seatSvgContent !== "") {
+    <div
+      class="svg-container"
+      [innerHtml]="seatSvgContent"
+      class="mx-1 my-3 w-5"
+    ></div>
+  } @else if (seat.type.name !== seatTypeEnum.SEAT_BLANK) {
+    <div class="seat mx-1 my-3">
+      <fa-icon [icon]="chairSvg" size="xl"></fa-icon>
+    </div>
+  } @else {
+    <div class="seat mx-1 my-3 opacity-0">
+      <fa-icon [icon]="chairSvg" size="xl"></fa-icon>
+    </div>
+  }
+}
