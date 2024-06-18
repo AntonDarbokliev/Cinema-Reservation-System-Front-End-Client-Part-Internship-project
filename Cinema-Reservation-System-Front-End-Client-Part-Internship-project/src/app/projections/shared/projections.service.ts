@@ -3,7 +3,10 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Movie } from '../../shared/models/movie.model';
 import { CinemaService } from '../../shared/services/cinema.service';
-import { ProjectionType } from '../../shared/models/projection.model';
+import {
+  Projection,
+  ProjectionType,
+} from '../../shared/models/projection.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +30,11 @@ export class ProjectionService {
 
   getProjectionTypes() {
     return this.http.get<ProjectionType[]>(`${this.apiUrl}/projections/types`);
+  }
+
+  getProjection(projectionId: string) {
+    return this.http.get<Projection>(
+      `${this.apiUrl}/projections/${projectionId}`,
+    );
   }
 }
