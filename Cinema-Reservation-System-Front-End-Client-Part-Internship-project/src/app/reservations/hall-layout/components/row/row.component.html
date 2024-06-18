@@ -1,0 +1,5 @@
+<div class="row flex w-screen justify-center">
+  @for (seat of row.seats; track seat._id) {
+    <app-seat [seat]="seat"></app-seat>
+  }
+</div>
