@@ -11,3 +11,12 @@
   --border-radius: 15px;
   --nav-height: 9rem;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
