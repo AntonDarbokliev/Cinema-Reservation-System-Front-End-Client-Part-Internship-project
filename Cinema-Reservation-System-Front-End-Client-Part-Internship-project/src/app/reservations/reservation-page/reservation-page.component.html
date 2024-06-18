@@ -16,16 +16,30 @@
 
   <div class="content flex">
     @if (movie && projection) {
-      <div class="projection-info h-20 w-screen bg-black text-white flex items-center">
+      <div
+        class="projection-info flex h-20 w-screen items-center bg-black text-white"
+      >
         <div class="projection-info-wrapper ml-4">
-          <h1 class="font-bold text-lg">{{ movie.name }}</h1>
-          <p>{{projection.startDate.toString().substring(0,10)}} - {{projection.startTime}}</p>
-          <p>Hall {{projection.hall.name}} - {{projection.status}}</p>
+          <h1 class="text-lg font-bold">{{ movie.name }}</h1>
+          <p>
+            {{ projection.startDate.toString().substring(0, 10) }} -
+            {{ projection.startTime }}
+          </p>
+          <p>Hall {{ projection.hall.name }} - {{ projection.status }}</p>
         </div>
       </div>
     }
   </div>
+
   <div class="heading-div w-screen border-b p-4">
     <h1 class="text-3xl font-bold">CHOOSE YOUR SEAT</h1>
   </div>
+  @if (stage === enum.SEAT_SELECTION && projection) {
+    <app-hall-layout [hall]="projection.hall"></app-hall-layout>
+  }
+  @if (showNextButton) {
+    <div class="next-btn-wrapepr flex justify-end">
+      <app-button label="Next"></app-button>
+    </div>
+  }
 </div>
