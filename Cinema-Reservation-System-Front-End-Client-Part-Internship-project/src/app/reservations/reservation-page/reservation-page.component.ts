@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectionService } from '../../projections/shared/projections.service';
 import { Projection } from '../../shared/models/projection.model';
@@ -13,6 +7,7 @@ import { MovieService } from '../../shared/services/movie.service';
 import { HallLayoutComponent } from '../hall-layout/hall-layout.component';
 import { ReservationsService } from '../shared/reservations.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { SidesSelectionComponent } from '../sides-selection/sides-selection.component';
 
 enum ReservationStage {
   'SEAT_SELECTION' = 0,
@@ -23,7 +18,7 @@ enum ReservationStage {
 @Component({
   selector: 'app-reservation-page',
   standalone: true,
-  imports: [HallLayoutComponent, ButtonComponent],
+  imports: [HallLayoutComponent, ButtonComponent, SidesSelectionComponent],
   templateUrl: './reservation-page.component.html',
   styleUrl: './reservation-page.component.css',
 })
@@ -34,6 +29,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
   stage: ReservationStage = ReservationStage.SEAT_SELECTION;
   enum: typeof ReservationStage = ReservationStage;
   showNextButton: boolean = false;
+  showPreviousButton: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,5 +74,26 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
 
   private initializeTickets(projection: Projection) {
     this.reservationsService.setTickets(projection.tickets);
+  }
+
+  goToNextStage() {
+    if (this.stage == this.enum.SEAT_SELECTION) {
+      this.stage = this.enum.SIDES_SELECTION;
+      this.showPreviousButton = true;
+    } else {
+      this.stage = this.enum.SUMMARY;
+      this.showPreviousButton = true;
+      this.showNextButton = false;
+    }
+  }
+
+  goToPreviousPage() {
+    if (this.stage == this.enum.SIDES_SELECTION) {
+      this.stage = this.enum.SEAT_SELECTION;
+      this.showPreviousButton = false;
+    } else {
+      this.stage = this.enum.SIDES_SELECTION;
+      this.showNextButton = true;
+    }
   }
 }

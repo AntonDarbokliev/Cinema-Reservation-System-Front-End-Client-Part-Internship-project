@@ -37,9 +37,15 @@
   @if (stage === enum.SEAT_SELECTION && projection) {
     <app-hall-layout [hall]="projection.hall"></app-hall-layout>
   }
-  @if (showNextButton) {
-    <div class="next-btn-wrapepr flex justify-end">
-      <app-button label="Next"></app-button>
-    </div>
+  @if (stage === enum.SIDES_SELECTION) {
+    <app-sides-selection></app-sides-selection>
   }
+  <div class="next-btn-wrapepr flex justify-end">
+    @if (showPreviousButton) {
+      <app-button (click)="goToPreviousPage()" width="6rem" label="Back"></app-button>
+    }
+    @if (showNextButton) {
+      <app-button (click)="goToNextStage()" label="Next"></app-button>
+    }
+  </div>
 </div>
