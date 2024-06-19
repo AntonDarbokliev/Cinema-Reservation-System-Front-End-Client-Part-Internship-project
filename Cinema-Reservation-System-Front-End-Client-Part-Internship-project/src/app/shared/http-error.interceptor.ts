@@ -21,9 +21,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         const errorObj: ErrorObj = err.error;
-        errorObj.message.forEach((msg) => {
-          this.toastService.addToast({ message: msg, type: 'error' });
-        });
+        if (Array.isArray(errorObj.message)) {
+          errorObj.message.forEach((msg) => {
+            this.toastService.addToast({ message: msg, type: 'error' });
+          });
+        } else {
+          this.toastService.addToast({
+            message: errorObj.message,
+            type: 'error',
+          });
+        }
 
         return throwError(() => err);
       }),
