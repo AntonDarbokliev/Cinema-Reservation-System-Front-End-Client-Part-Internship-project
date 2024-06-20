@@ -8,17 +8,24 @@ import { HallLayoutComponent } from '../hall-layout/hall-layout.component';
 import { ReservationsService } from '../shared/reservations.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { SidesSelectionComponent } from '../sides-selection/sides-selection.component';
+import { SummaryComponent } from '../summary/summary.component';
 
 enum ReservationStage {
   'SEAT_SELECTION' = 0,
   'SIDES_SELECTION' = 1,
   'SUMMARY' = 2,
+  'RESERVED' = 3,
 }
 
 @Component({
   selector: 'app-reservation-page',
   standalone: true,
-  imports: [HallLayoutComponent, ButtonComponent, SidesSelectionComponent],
+  imports: [
+    HallLayoutComponent,
+    ButtonComponent,
+    SidesSelectionComponent,
+    SummaryComponent,
+  ],
   templateUrl: './reservation-page.component.html',
   styleUrl: './reservation-page.component.css',
 })
@@ -60,6 +67,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.reservationsService.setSelectedSeat(null);
+    this.reservationsService.sidesWithQuantity = {};
   }
 
   private initializeMovie(projection: Projection) {
@@ -94,6 +102,13 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
     } else {
       this.stage = this.enum.SIDES_SELECTION;
       this.showNextButton = true;
+    }
+  }
+
+  reserveSeat() {
+    if (this.projection) {
+      this.reservationsService.makeReservation(this.projection);
+      this.stage = this.enum.RESERVED;
     }
   }
 }
