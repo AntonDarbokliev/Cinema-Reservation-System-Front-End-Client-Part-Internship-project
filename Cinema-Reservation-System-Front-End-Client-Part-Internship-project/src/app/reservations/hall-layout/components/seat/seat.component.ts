@@ -1,16 +1,12 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChair } from '@fortawesome/free-solid-svg-icons';
 import { Seat, SeatTypeName } from '../../../../shared/models/hall.model';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ReservationsService } from '../../../shared/reservations.service';
+import { Reservation } from '../../../../shared/models/reservation.model';
+import { Ticket } from '../../../../shared/models/ticket.model';
 
 enum SeatStatus {
   SEAT_TAKEN = 'Taken',
@@ -74,35 +70,47 @@ export class SeatComponent implements OnInit {
   }
 
   updateSeatStatus() {
-    const isReserved = this.reservationsService.reservations.some(
-      (reservation) => {
-        return reservation.seat === this.seat?._id;
-      },
-    );
-
-    const isBought = this.reservationsService.tickets.some((ticket) => {
-      return ticket.seat._id === this.seat?._id;
-    });
-
     const isSelected =
       this.reservationsService.selectedSeat.value?.seat._id === this.seat?._id;
-
-    if (isReserved || isBought) {
-      this.seatStatus = this.seatStatusEnum.SEAT_TAKEN;
-    } else if (isSelected) {
-      this.seatStatus = this.seatStatusEnum.SEAT_SELECTED;
-    } else {
-      this.seatStatus = this.seatStatusEnum.SEAT_FREE;
+    if (this.seat) {
+      if (
+        this.isReserved(this.seat, this.reservationsService.reservations) ||
+        this.isBought(this.seat, this.reservationsService.tickets)
+      ) {
+        this.seatStatus = this.seatStatusEnum.SEAT_TAKEN;
+      } else if (isSelected) {
+        this.seatStatus = this.seatStatusEnum.SEAT_SELECTED;
+      } else {
+        this.seatStatus = this.seatStatusEnum.SEAT_FREE;
+      }
     }
   }
 
   setSeat() {
-    if (this.seat && this.seatRow && this.seatNumber) {
+    if (
+      this.seat &&
+      this.seatRow &&
+      this.seatNumber &&
+      !this.isReserved(this.seat, this.reservationsService.reservations) &&
+      !this.isBought(this.seat, this.reservationsService.tickets)
+    ) {
       this.reservationsService.setSelectedSeat(
         this.seat,
         this.seatRow,
         this.seatNumber,
       );
     }
+  }
+
+  isReserved(seat: Seat, reservations: Reservation[]): boolean {
+    return reservations.some((reservation) => {
+      return reservation.seat === seat._id;
+    });
+  }
+
+  isBought(seat: Seat, tickets: Ticket[]): boolean {
+    return tickets.some((ticket) => {
+      return ticket.seat === seat._id;
+    });
   }
 }
