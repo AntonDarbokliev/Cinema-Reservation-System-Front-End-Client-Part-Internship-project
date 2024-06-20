@@ -18,7 +18,7 @@ export class SidesService {
   getSides() {
     return this.http.get<MenuItem[]>(
       `${this.baseUrl}/food-and-beverages/${this.cinemaService.cinema.value._id}`,
-      // `${this.baseUrl}/food-and-beverages/664cedffce82675ad95c08e4`,
+      // `${this.baseUrl}/food-and-beverages/664cedffce82675a/d95c08e4`,
     );
   }
 }

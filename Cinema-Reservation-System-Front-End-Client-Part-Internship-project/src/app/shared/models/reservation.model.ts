@@ -1,4 +1,5 @@
 import { Seat } from './hall.model';
+import { MenuItem } from './menu-item.model';
 import { Projection } from './projection.model';
 
 export enum ReservationStatus {
@@ -38,9 +39,11 @@ export interface CreateReservation {
 
   projectionId: string;
 
-  user: string;
+  userId: string;
 
   movieName: string;
 
   moviePoster: string;
+
+  foodAndBeverages?: MenuItem[];
 }

@@ -7,7 +7,7 @@ export interface Ticket {
 
   reservaton: Reservation;
 
-  seat: Seat;
+  seat: string;
 
   seatRow: number;
 

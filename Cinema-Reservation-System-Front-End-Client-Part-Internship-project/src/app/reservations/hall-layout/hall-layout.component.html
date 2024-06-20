@@ -2,7 +2,10 @@
   <div class="hall-layout min-h-64 w-screen bg-gray-500 text-center">
     <h1 class="text-2xl font-bold">SCREEN</h1>
     @for (row of hall.seatsLayout; track row._id) {
-      <app-row [row]="row"></app-row>
+      <app-row
+        [row]="row"
+        [rowNumber]="hall.seatsLayout.indexOf(row) + 1"
+      ></app-row>
     }
   </div>
 }

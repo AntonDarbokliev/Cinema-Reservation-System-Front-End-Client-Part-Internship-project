@@ -1,6 +1,7 @@
 @if (seat) {
   @if (seatSvgContent !== "") {
     <div
+      (click)="setSeat()"
       [innerHtml]="seatSvgContent"
       [style.fill]="color"
       class="svg-container mx-1 my-3 w-5"

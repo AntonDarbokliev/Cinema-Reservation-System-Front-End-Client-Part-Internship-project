@@ -10,7 +10,6 @@ import { ReservationsService } from '../shared/reservations.service';
   standalone: true,
   imports: [ButtonComponent, InputFieldComponent],
   templateUrl: './sides-selection.component.html',
-  styleUrl: './sides-selection.component.css',
 })
 export class SidesSelectionComponent implements OnInit {
   sides: MenuItem[] = [];
