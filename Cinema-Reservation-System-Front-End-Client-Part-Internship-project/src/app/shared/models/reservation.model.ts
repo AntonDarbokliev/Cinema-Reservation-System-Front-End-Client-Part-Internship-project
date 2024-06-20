@@ -20,11 +20,27 @@ export interface Reservation {
 
   status: ReservationStatus;
 
-  userId: string;
+  user: string;
 
   movieName: string;
 
   moviePoster: string;
 
   projection: Projection;
+}
+
+export interface CreateReservation {
+  seat: string;
+
+  seatRow: number;
+
+  seatNumber: number;
+
+  projectionId: string;
+
+  user: string;
+
+  movieName: string;
+
+  moviePoster: string;
 }
