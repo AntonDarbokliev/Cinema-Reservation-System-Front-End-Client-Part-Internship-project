@@ -27,6 +27,8 @@ enum SeatStatus {
 })
 export class SeatComponent implements OnInit {
   @Input() seat: Seat | null = null;
+  @Input() seatRow: number = 0;
+  @Input() seatNumber: number = 0;
   chairSvg = faChair;
   seatTypeEnum = SeatTypeName;
   seatSvgContent: SafeHtml = '';
@@ -83,7 +85,7 @@ export class SeatComponent implements OnInit {
     });
 
     const isSelected =
-      this.reservationsService.selectedSeat.value?._id === this.seat?._id;
+      this.reservationsService.selectedSeat.value?.seat._id === this.seat?._id;
 
     if (isReserved || isBought) {
       this.seatStatus = this.seatStatusEnum.SEAT_TAKEN;
@@ -95,8 +97,12 @@ export class SeatComponent implements OnInit {
   }
 
   setSeat() {
-    if (this.seat) {
-      this.reservationsService.setSelectedSeat(this.seat);
+    if (this.seat && this.seatRow && this.seatNumber) {
+      this.reservationsService.setSelectedSeat(
+        this.seat,
+        this.seatRow,
+        this.seatNumber,
+      );
     }
   }
 }

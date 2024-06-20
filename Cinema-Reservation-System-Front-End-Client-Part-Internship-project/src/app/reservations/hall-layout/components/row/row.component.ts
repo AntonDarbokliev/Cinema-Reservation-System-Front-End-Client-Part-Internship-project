@@ -11,4 +11,5 @@ import { SeatComponent } from '../seat/seat.component';
 })
 export class RowComponent {
   @Input() row: Row = { _id: '', seats: [] };
+  @Input() rowNumber: number = 0;
 }
