@@ -22,6 +22,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() value = '';
   @Input() label = '';
   @Input() type = 'text';
+  @Input() width? = '';
 
   writeValue(value: any) {
     if (value !== undefined) {
