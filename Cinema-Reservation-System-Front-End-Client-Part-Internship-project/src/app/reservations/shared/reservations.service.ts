@@ -13,6 +13,7 @@ export class ReservationsService {
   selectedSeat: BehaviorSubject<Seat | null> = new BehaviorSubject<Seat | null>(
     null,
   );
+  sidesWithQuantity: { [key: string]: number } = {};
 
   setReservations(data: Reservation[]) {
     this.reservations = data;
@@ -24,5 +25,28 @@ export class ReservationsService {
 
   setSelectedSeat(data: Seat | null) {
     this.selectedSeat.next(data);
+  }
+
+  incrementItemQuantity(id: string) {
+    if (this.sidesWithQuantity[id]) {
+      const newValue = this.sidesWithQuantity[id] + 1;
+      if (newValue > 99) {
+        return;
+      }
+      this.sidesWithQuantity[id] = newValue;
+    } else {
+      this.sidesWithQuantity[id] = 1;
+    }
+  }
+
+  decrementItemQuantity(id: string) {
+    if (this.sidesWithQuantity[id]) {
+      const newValue = this.sidesWithQuantity[id] - 1;
+      if (newValue === 0) {
+        delete this.sidesWithQuantity[id];
+      } else {
+        this.sidesWithQuantity[id] = newValue;
+      }
+    }
   }
 }
