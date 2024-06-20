@@ -5,13 +5,14 @@ import {
 } from '../../shared/models/reservation.model';
 import { Ticket } from '../../shared/models/ticket.model';
 import { Seat } from '../../shared/models/hall.model';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../authentication/shared/authentication.service';
 import { MovieService } from '../../shared/services/movie.service';
-import { Movie } from '../../shared/models/movie.model';
 import { Projection } from '../../shared/models/projection.model';
+import { MenuItem } from '../../shared/models/menu-item.model';
+import { SidesService } from './sides.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,7 @@ export class ReservationsService {
     private http: HttpClient,
     private authService: AuthenticationService,
     private movieService: MovieService,
+    private sidesService: SidesService,
   ) {}
 
   baseUrl = environment.apiUrl;
@@ -79,6 +81,7 @@ export class ReservationsService {
 
   makeReservation(projection: Projection) {
     let reservationToSend: CreateReservation;
+    const foodAndBeverages: MenuItem[] = [];
 
     if (projection._id && this.selectedSeat.value) {
       this.movieService.getMovie(projection.movieId).subscribe((movie) => {
@@ -91,13 +94,31 @@ export class ReservationsService {
               seatRow: this.selectedSeat.value!.seatRow,
               seatNumber: this.selectedSeat.value!.seatNumber,
               projectionId: projection._id,
-              user: user.id,
+              userId: user.id,
               movieName: movie.name,
               moviePoster: movie.poster,
             };
-            this.http
-              .post(this.baseUrl + '/reservations', reservationToSend)
-              .subscribe();
+
+            if (Object.keys(this.sidesWithQuantity).length > 0) {
+              this.sidesService.getSides().subscribe((sides) => {
+                Object.keys(this.sidesWithQuantity).forEach((sideId) => {
+                  const side = sides.find((side) => side._id === sideId);
+
+                  if (side) {
+                    for (let i = 0; i < this.sidesWithQuantity[sideId]; i++) {
+                      foodAndBeverages.push(side);
+                    }
+                  }
+                });
+
+                if (foodAndBeverages.length > 0) {
+                  reservationToSend.foodAndBeverages = foodAndBeverages;
+                }
+                this.http
+                  .post(this.baseUrl + '/reservations', reservationToSend)
+                  .subscribe();
+              });
+            }
           }
         });
       });
