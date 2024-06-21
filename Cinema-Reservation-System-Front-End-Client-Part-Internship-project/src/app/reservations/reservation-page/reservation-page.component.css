@@ -8,3 +8,8 @@
 .stage-style {
   @apply border border-white w-1/3 bg-black text-white p-4 text-center;
 }
+
+.active {
+  background: var(--main-color);
+  color: black
+}

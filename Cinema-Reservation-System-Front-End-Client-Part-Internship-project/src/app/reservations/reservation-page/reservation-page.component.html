@@ -1,14 +1,20 @@
-<div class="reserve-seat">
-  <div class="stages flex w-screen">
-    <div class="stage stage-style">
+<div class="reserve-seat h-screen">
+  <div class="stages mt-32 flex w-screen">
+    <div
+      class="stage stage-style"
+      [class.active]="stage === enum.SEAT_SELECTION"
+    >
       <p>1</p>
       Seat selection
     </div>
-    <div class="stage stage-style">
+    <div
+      class="stage stage-style"
+      [class.active]="stage === enum.SIDES_SELECTION"
+    >
       <p>2</p>
       Sides selection
     </div>
-    <div class="stage stage-style">
+    <div class="stage stage-style" [class.active]="stage === enum.SUMMARY">
       <p>3</p>
       Summary
     </div>
@@ -34,20 +40,23 @@
   <div class="heading-div w-screen border-b p-4">
     <h1 class="text-3xl font-bold">CHOOSE YOUR SEAT</h1>
   </div>
-  @if (stage === enum.SEAT_SELECTION && projection) {
-    <app-hall-layout [hall]="projection.hall"></app-hall-layout>
-  }
-  @if (stage === enum.SIDES_SELECTION) {
-    <app-sides-selection></app-sides-selection>
-  }
 
-  @if (stage === enum.SUMMARY) {
-    <app-summary></app-summary>
-  }
+  <div class="stage-content">
+    @if (stage === enum.SEAT_SELECTION && projection) {
+      <app-hall-layout [hall]="projection.hall"></app-hall-layout>
+    }
+    @if (stage === enum.SIDES_SELECTION) {
+      <app-sides-selection></app-sides-selection>
+    }
 
-  @if (stage === enum.DONE) {
-    <app-done-page></app-done-page>
-  }
+    @if (stage === enum.SUMMARY) {
+      <app-summary></app-summary>
+    }
+
+    @if (stage === enum.DONE) {
+      <app-done-page></app-done-page>
+    }
+  </div>
 
   @if (stage !== enum.DONE) {
     <div class="next-btn-wrapepr flex justify-end">
