@@ -99,26 +99,24 @@ export class ReservationsService {
               moviePoster: movie.poster,
             };
 
-            if (Object.keys(this.sidesWithQuantity).length > 0) {
-              this.sidesService.getSides().subscribe((sides) => {
-                Object.keys(this.sidesWithQuantity).forEach((sideId) => {
-                  const side = sides.find((side) => side._id === sideId);
+            this.sidesService.getSides().subscribe((sides) => {
+              Object.keys(this.sidesWithQuantity).forEach((sideId) => {
+                const side = sides.find((side) => side._id === sideId);
 
-                  if (side) {
-                    for (let i = 0; i < this.sidesWithQuantity[sideId]; i++) {
-                      foodAndBeverages.push(side);
-                    }
+                if (side) {
+                  for (let i = 0; i < this.sidesWithQuantity[sideId]; i++) {
+                    foodAndBeverages.push(side);
                   }
-                });
-
-                if (foodAndBeverages.length > 0) {
-                  reservationToSend.foodAndBeverages = foodAndBeverages;
                 }
-                this.http
-                  .post(this.baseUrl + '/reservations', reservationToSend)
-                  .subscribe();
               });
-            }
+
+              if (foodAndBeverages.length > 0) {
+                reservationToSend.foodAndBeverages = foodAndBeverages;
+              }
+              this.http
+                .post(this.baseUrl + '/reservations', reservationToSend)
+                .subscribe();
+            });
           }
         });
       });

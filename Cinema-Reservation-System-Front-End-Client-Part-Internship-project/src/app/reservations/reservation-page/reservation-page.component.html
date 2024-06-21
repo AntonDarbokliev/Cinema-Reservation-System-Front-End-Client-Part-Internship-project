@@ -44,15 +44,30 @@
   @if (stage === enum.SUMMARY) {
     <app-summary></app-summary>
   }
-  <div class="next-btn-wrapepr flex justify-end">
-    @if (showPreviousButton) {
-      <app-button (click)="goToPreviousPage()" width="6rem" label="Back"></app-button>
-    }
-    @if (stage === enum.SUMMARY) {
-      <app-button (click)="reserveSeat()" width="6rem" label="Reserve"></app-button>
-    }
-    @if (showNextButton) {
-      <app-button (click)="goToNextStage()" label="Next"></app-button>
-    }
-  </div>
+
+  @if (stage === enum.DONE) {
+    <app-done-page></app-done-page>
+  }
+
+  @if (stage !== enum.DONE) {
+    <div class="next-btn-wrapepr flex justify-end">
+      @if (showPreviousButton) {
+        <app-button
+          (click)="goToPreviousPage()"
+          width="6rem"
+          label="Back"
+        ></app-button>
+      }
+      @if (stage === enum.SUMMARY) {
+        <app-button
+          (click)="reserveSeat()"
+          width="6rem"
+          label="Reserve"
+        ></app-button>
+      }
+      @if (showNextButton) {
+        <app-button (click)="goToNextStage()" label="Next"></app-button>
+      }
+    </div>
+  }
 </div>

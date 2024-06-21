@@ -9,12 +9,13 @@ import { ReservationsService } from '../shared/reservations.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { SidesSelectionComponent } from '../sides-selection/sides-selection.component';
 import { SummaryComponent } from '../summary/summary.component';
+import { DonePageComponent } from '../done-page/done-page.component';
 
 enum ReservationStage {
   'SEAT_SELECTION' = 0,
   'SIDES_SELECTION' = 1,
   'SUMMARY' = 2,
-  'RESERVED' = 3,
+  'DONE' = 3,
 }
 
 @Component({
@@ -25,6 +26,7 @@ enum ReservationStage {
     ButtonComponent,
     SidesSelectionComponent,
     SummaryComponent,
+    DonePageComponent,
   ],
   templateUrl: './reservation-page.component.html',
   styleUrl: './reservation-page.component.css',
@@ -108,7 +110,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
   reserveSeat() {
     if (this.projection) {
       this.reservationsService.makeReservation(this.projection);
-      this.stage = this.enum.RESERVED;
+      this.stage = this.enum.DONE;
     }
   }
 }
