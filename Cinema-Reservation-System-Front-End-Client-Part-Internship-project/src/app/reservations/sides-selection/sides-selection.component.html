@@ -1,12 +1,13 @@
 <div class="sides-selection">
   @for (side of sides; track side._id) {
     <div
-      class="side my-3 flex w-screen justify-center border-b-2 bg-black text-center"
+      class="side my-3 flex w-screen justify-center border-b-2 bg-black text-center md:items-center md:justify-between"
     >
       <img
         [src]="side.image"
-        class="m-4 hidden w-1/2 overflow-hidden rounded-lg"
+        class="m-4 hidden w-1/2 overflow-hidden rounded-lg md:block md:w-56 md:ml-10"
       />
+      <p class="text-white w-1/4 hidden md:block">{{ side.description }}</p>
       <!-- Show img on md screens -->
       <div class="side-info flex w-1/2 flex-col items-center">
         <h1 class="text-lg text-white">{{ side.name }}</h1>
@@ -31,6 +32,7 @@
           (click)="toggleReadMore(side._id)"
           label="Read more"
           width="7.5rem"
+          class="md:hidden"
         ></app-button>
         @if (readMoreStates[side._id]) {
           <div class="read-more">
