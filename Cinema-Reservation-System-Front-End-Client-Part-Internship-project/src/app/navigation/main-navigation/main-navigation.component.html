@@ -1,0 +1,43 @@
+<div class="main-navigation fixed w-full">
+  <div
+    class="main-navigation-top flex h-20 w-full items-center justify-center bg-black text-white"
+  >
+    <div class="logo ml-36 mr-auto">Logo</div>
+
+    <div class="right-side-nav ml-auto mr-36 flex items-center justify-center">
+      <div class="location hidden md:flex md:items-center">
+        <fa-icon [icon]="faLocationDot" size="lg" class="mr-1"></fa-icon>
+        @if (selectedCinema !== null) {
+          <p class="mr-4">{{ selectedCinema.name }} |</p>
+        }
+        <app-dropdown
+          [options]="options"
+          placeholder="Select an option"
+          (selectionChange)="onDropdownSelectionChange($event)"
+        ></app-dropdown>
+      </div>
+
+      <p class="ml-4">
+        <fa-icon
+          [icon]="faMagnifyingGlass"
+          size="lg"
+          class="ml-3 mr-10 md:mr-0"
+        ></fa-icon>
+      </p>
+
+      <app-input-field class="hidden md:block"></app-input-field>
+      @if (user) {
+        <fa-icon [icon]="faUser" size="2x" class="mr-1"></fa-icon>
+      }
+    </div>
+  </div>
+  <div
+    class="main-navigation-bottom mr-4 flex h-12 w-full items-center justify-center bg-[color:var(--main-color)] text-center text-2xl font-semibold shadow-md [&>*]:mr-32 [&>*]:h-full"
+  >
+    <a class="hover:text-white" routerLink="/program">Program</a>
+    @if (!user) {
+      <a class="hover:text-white" routerLink="/register">Register</a>
+      <a class="hover:text-white" routerLink="/login">Login</a>
+    }
+  </div>
+</div>

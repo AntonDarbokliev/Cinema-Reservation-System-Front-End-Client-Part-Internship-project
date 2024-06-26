@@ -1,0 +1,13 @@
+<div class="dropdown-container">
+  <select
+    (change)="onSelectionChange($event)"
+    class="w-54 m-3 h-10 rounded-3xl border border-black px-5 text-black outline-[color:var(--main-color)]"
+  >
+    <option value="" [disabled]="disableFirst" selected>
+      {{ placeholder }}
+    </option>
+    @for (option of options; track option) {
+      <option [value]="option.value">{{ option.text }}</option>
+    }
+  </select>
+</div>

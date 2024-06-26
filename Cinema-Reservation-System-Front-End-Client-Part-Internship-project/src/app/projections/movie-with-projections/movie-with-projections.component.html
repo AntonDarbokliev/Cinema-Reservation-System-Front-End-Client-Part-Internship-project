@@ -1,0 +1,41 @@
+@if (movie) {
+  <div class="movie-with-projections w-full border-b-4 px-9">
+    <div class="wrapper flex w-full">
+      <img
+        class="md: my-6 w-2/6 rounded-lg shadow-xl md:w-1/12"
+        [src]="movie.poster"
+        alt="poster"
+      />
+      <div class="card-contents ml-5 mt-5 flex flex-col">
+        <h1 class="text-2xl font-bold">{{ movie.name }}</h1>
+        <div class="rating-and-length flex items-center justify-between">
+          <app-rating-bubble [rating]="movie.rating"></app-rating-bubble>
+          <p class="">
+            @for (genre of movie.genres; track genre) {
+              {{ genre }}
+            }
+            |{{ movie.length }} min
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="projections-wrapper">
+      @for (projectionType of allProjectionTypes; track projectionType) {
+        <div class="projections mb-4">
+          <h1 class="mb-4 border-t-2 text-2xl font-semibold">
+            {{ projectionType }}
+          </h1>
+          <div class="projection-bubbles flex w-1/3 flex-wrap">
+            @for (projection of movie.projections; track projection._id) {
+              @if (projection.projectionType == projectionType) {
+                <app-projection-bubble
+                  [startTime]="projection.startTime"
+                ></app-projection-bubble>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

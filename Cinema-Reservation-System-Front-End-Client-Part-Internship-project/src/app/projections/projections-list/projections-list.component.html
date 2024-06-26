@@ -1,0 +1,39 @@
+@if (cinema) {
+  <div class="projections flex flex-col justify-center pt-28">
+    <div
+      class="filters flex w-screen flex-col items-center border-b-2 shadow-md"
+    >
+      <div class="filters-wrapper w-3/6">
+        <h1 class="mb-3 text-4xl">Projections</h1>
+        <div class="row-one mb-3 flex flex-col">
+          <p class="font-bold">{{ cinema.name }}</p>
+          <p class="font-bold">{{ cinema.address }}</p>
+        </div>
+        <div class="row-two flex items-center justify-between pb-5">
+          <div class="date-wrapper">
+            <label>Date: </label>
+            <app-input-field [formControl]="date" type="date"></app-input-field>
+          </div>
+          <div
+            class="projection-type-wrapper flex flex-col items-center md:flex-row"
+          >
+            <label>Projection Type: </label>
+            <app-dropdown
+              [options]="proejctionTypesOptions"
+              placeholder="Any"
+              [disableFirst]="false"
+              (selectionChange)="onProjectionTypeChange($event)"
+            ></app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="projections-list">
+      @for (movie of movies; track movie._id) {
+        <app-movie-with-projections
+          [movie]="movie"
+        ></app-movie-with-projections>
+      }
+    </div>
+  </div>
+}
