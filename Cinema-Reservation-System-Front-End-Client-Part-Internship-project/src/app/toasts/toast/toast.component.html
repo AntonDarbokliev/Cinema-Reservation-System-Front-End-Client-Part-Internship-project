@@ -1,0 +1,23 @@
+<div
+  id="toast-simple"
+  class="space-x dark:text-whtie mb-5 flex w-full max-w-xs items-center space-x-4 divide-x divide-gray-200 rounded-lg bg-white p-4 text-white shadow rtl:space-x-reverse rtl:divide-x-reverse dark:divide-white"
+  [class]="getToastClass()"
+  role="alert"
+>
+  <svg
+    [class]="getToastClass()"
+    class="h-5 w-5 rotate-45"
+    aria-hidden="true"
+    fill="none"
+    viewBox="0 0 18 20"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
+    />
+  </svg>
+  <div class="ps-4 text-sm font-normal">{{ toast.message }}</div>
+</div>

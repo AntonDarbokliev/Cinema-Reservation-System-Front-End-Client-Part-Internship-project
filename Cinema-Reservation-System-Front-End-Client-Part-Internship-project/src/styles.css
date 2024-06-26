@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-color: #f5821e;
+  --second-color: black;
+  --box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  --border-radius: 15px;
+  --nav-height: 9rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}

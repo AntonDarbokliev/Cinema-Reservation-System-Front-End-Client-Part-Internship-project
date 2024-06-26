@@ -1,0 +1,13 @@
+<div class="summary flex flex-col p-10">
+  @for(side of sidesWithPositiveQuantity; track side._id) {
+    <div class="side flex justify-between border-t my-2">
+      <p>{{ side.name }}</p>
+      <p>{{reservationsService.sidesWithQuantity[side._id]}}X ${{ side.price }}</p>
+    </div>
+  }
+  <div class="total flex justify-between border-t-2 border-black">
+    <p>Total:</p>
+    <p>${{ totalPrice.toFixed(2) }}</p>
+  </div>
+  <p class="mt-2 font-bold">Note: Tickets are bought in place, not in the app</p>
+</div>

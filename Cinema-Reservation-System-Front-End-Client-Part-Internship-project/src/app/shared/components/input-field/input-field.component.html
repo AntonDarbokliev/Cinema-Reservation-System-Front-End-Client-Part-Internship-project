@@ -1,0 +1,8 @@
+<input
+  class="w-54 m-3 h-10 rounded-3xl border border-black px-5 text-center outline-[color:var(--main-color)]"
+  [value]="value"
+  (input)="onInput($event)"
+  [placeholder]="label"
+  [type]="type"
+  [style.width]="width ? width : ''"
+/>
