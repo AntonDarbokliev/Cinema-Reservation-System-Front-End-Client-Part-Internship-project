@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
+import { InputFieldComponent } from '@shared/components/input-field/input-field.component';
 import { AuthenticationService } from '../../authentication/shared/authentication.service';
 import { User } from '../../authentication/shared/user-model';
 import { CinemaService } from '../../shared/services/cinema.service';
-import { Cinema } from '../../shared/models/cinema.model';
-import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
+import { Cinema } from '@shared/models/cinema.model';
+import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import {
   faLocationDot,
   faMagnifyingGlass,

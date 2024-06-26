@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../shared/models/movie.model';
+import { Movie } from '@shared/models/movie.model';
 import { ProjectionService } from '../shared/projections.service';
 import { MovieWithProjectionsComponent } from '../movie-with-projections/movie-with-projections.component';
-import { CinemaService } from '../../shared/services/cinema.service';
-import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
-import { Cinema } from '../../shared/models/cinema.model';
-import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
+import { CinemaService } from '@shared/services/cinema.service';
+import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
+import { Cinema } from '@shared/models/cinema.model';
+import { InputFieldComponent } from '@shared/components/input-field/input-field.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ProjectionType } from '../../shared/models/projection.model';
+import { ProjectionType } from '@shared/models/projection.model';
 
 @Component({
   selector: 'app-projections-list',

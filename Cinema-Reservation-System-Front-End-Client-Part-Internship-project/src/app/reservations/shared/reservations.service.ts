@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   CreateReservation,
   Reservation,
-} from '../../shared/models/reservation.model';
-import { Ticket } from '../../shared/models/ticket.model';
-import { Seat } from '../../shared/models/hall.model';
+} from '@shared/models/reservation.model';
+import { Ticket } from '@shared/models/ticket.model';
+import { Seat } from '@shared/models/hall.model';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../authentication/shared/authentication.service';
-import { MovieService } from '../../shared/services/movie.service';
-import { Projection } from '../../shared/models/projection.model';
-import { MenuItem } from '../../shared/models/menu-item.model';
+import { MovieService } from '@shared/services/movie.service';
+import { Projection } from '@shared/models/projection.model';
+import { MenuItem } from '@shared/models/menu-item.model';
 import { SidesService } from './sides.service';
 
 @Injectable({

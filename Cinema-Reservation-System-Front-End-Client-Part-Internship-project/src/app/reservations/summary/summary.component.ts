@@ -3,7 +3,7 @@ import { ReservationsService } from '../shared/reservations.service';
 import { ToastService } from '../../toasts/toast.service';
 import { Router } from '@angular/router';
 import { SidesService } from '../shared/sides.service';
-import { MenuItem } from '../../shared/models/menu-item.model';
+import { MenuItem } from '@shared/models/menu-item.model';
 
 @Component({
   selector: 'app-summary',

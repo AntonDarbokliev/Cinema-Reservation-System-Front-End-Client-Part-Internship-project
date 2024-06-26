@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MenuItem } from '../../shared/models/menu-item.model';
+import { MenuItem } from '@shared/models/menu-item.model';
 import { SidesService } from '../shared/sides.service';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { InputFieldComponent } from '@shared/components/input-field/input-field.component';
 import { ReservationsService } from '../shared/reservations.service';
 
 @Component({

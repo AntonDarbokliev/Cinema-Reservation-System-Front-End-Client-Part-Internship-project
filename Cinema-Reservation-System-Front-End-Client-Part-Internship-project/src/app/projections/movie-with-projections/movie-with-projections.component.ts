@@ -2,19 +2,16 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Movie } from '../../shared/models/movie.model';
-import { Rating } from '../../shared/models/rating.model';
+import { Movie } from '@shared/models/movie.model';
 import {
   Projection,
-  ProjectionStatus,
   ProjectionType,
-} from '../../shared/models/projection.model';
-import { RatingBubbleComponent } from '../../shared/components/rating-bubble/rating-bubble.component';
+} from '@shared/models/projection.model';
+import { RatingBubbleComponent } from '@shared/components/rating-bubble/rating-bubble.component';
 
-import { ProjectionBubbleComponent } from '../../shared/components/projection-bubble/projection-bubble.component';
+import { ProjectionBubbleComponent } from '@shared/components/projection-bubble/projection-bubble.component';
 
 @Component({
   standalone: true,

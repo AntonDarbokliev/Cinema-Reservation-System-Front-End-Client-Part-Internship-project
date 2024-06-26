@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Movie } from '../../shared/models/movie.model';
-import { CinemaService } from '../../shared/services/cinema.service';
+import { Movie } from '@shared/models/movie.model';
+import { CinemaService } from '@shared/services/cinema.service';
 import {
   Projection,
   ProjectionType,
-} from '../../shared/models/projection.model';
+} from '@shared/models/projection.model';
 
 @Injectable({
   providedIn: 'root',

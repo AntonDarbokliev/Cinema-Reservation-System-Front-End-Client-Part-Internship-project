@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { InputFieldComponent } from '../../shared/components/input-field/input-field.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { InputFieldComponent } from '@shared/components/input-field/input-field.component';
 import {
   FormBuilder,
   FormGroup,

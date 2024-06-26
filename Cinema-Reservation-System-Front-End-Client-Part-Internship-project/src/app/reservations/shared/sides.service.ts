@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CinemaService } from '../../shared/services/cinema.service';
+import { CinemaService } from '@shared/services/cinema.service';
 import { environment } from '../../../environments/environment';
-import { MenuItem } from '../../shared/models/menu-item.model';
+import { MenuItem } from '@shared/models/menu-item.model';
 
 @Injectable({
   providedIn: 'root',

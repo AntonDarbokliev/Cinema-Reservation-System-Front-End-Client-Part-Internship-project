@@ -11,7 +11,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { HttpErrorInterceptor } from './shared/http-error.interceptor';
+import { HttpErrorInterceptor } from '@shared/http-error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
