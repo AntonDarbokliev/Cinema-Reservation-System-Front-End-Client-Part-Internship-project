@@ -17,20 +17,12 @@ import { AuthenticationService } from '../shared/authentication.service';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  buttonLabel: string = 'Register';
-  placeHolders = {
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    email: 'Email',
-    password: 'Password',
-    confirmPassword: 'Confirm Password',
-  };
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
   ) {}
 
-  registerForm: FormGroup = new FormGroup({});
+  registerForm: FormGroup = this.fb.group({});
   formSubmitted = false;
 
   ngOnInit() {

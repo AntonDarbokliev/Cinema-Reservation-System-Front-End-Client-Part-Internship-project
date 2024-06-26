@@ -17,7 +17,7 @@ import { AuthenticationService } from '../shared/authentication.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({});
+  loginForm: FormGroup = this.fb.group({});
   formSubmitted = false;
 
   constructor(
