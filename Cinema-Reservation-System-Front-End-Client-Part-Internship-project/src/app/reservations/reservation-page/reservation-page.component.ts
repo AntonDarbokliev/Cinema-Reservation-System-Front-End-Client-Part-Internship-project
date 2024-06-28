@@ -10,6 +10,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { SidesSelectionComponent } from '../sides-selection/sides-selection.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { DonePageComponent } from '../done-page/done-page.component';
+import { ReservationsWebsocketService } from '../shared/reservations-websocket.service';
 
 enum ReservationStage {
   'SEAT_SELECTION' = 0,
@@ -45,6 +46,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
     private projectionService: ProjectionService,
     private movieService: MovieService,
     private reservationsService: ReservationsService,
+    private reservationsWebsocketService: ReservationsWebsocketService,
   ) {
     this.projectionId = this.route.snapshot.paramMap.get('projectionId');
   }
@@ -64,12 +66,15 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
           this.showNextButton = true;
         }
       });
+      this.reservationsWebsocketService.setupSocketConnection();
     }
   }
 
   ngOnDestroy(): void {
+    this.unsetWebsocketSeat();
     this.reservationsService.setSelectedSeat(null);
     this.reservationsService.sidesWithQuantity = {};
+    this.reservationsWebsocketService.disconnect();
   }
 
   private initializeMovie(projection: Projection) {
@@ -95,6 +100,10 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
       this.showPreviousButton = true;
       this.showNextButton = false;
     }
+
+    if (this.stage === this.enum.SIDES_SELECTION) {
+      this.setWebsocketSeat();
+    }
   }
 
   goToPreviousPage() {
@@ -105,12 +114,34 @@ export class ReservationPageComponent implements OnInit, OnDestroy {
       this.stage = this.enum.SIDES_SELECTION;
       this.showNextButton = true;
     }
+
+    if (this.stage === this.enum.SEAT_SELECTION) {
+      this.unsetWebsocketSeat();
+    }
   }
 
   reserveSeat() {
     if (this.projection) {
       this.reservationsService.makeReservation(this.projection);
       this.stage = this.enum.DONE;
+    }
+  }
+
+  setWebsocketSeat() {
+    if (this.reservationsService.selectedSeat.value) {
+      this.reservationsWebsocketService.setSeat({
+        ...this.reservationsService.selectedSeat.value!.seat,
+        projectionId: this.projectionId!,
+      });
+    }
+  }
+
+  unsetWebsocketSeat() {
+    if (this.reservationsService.selectedSeat.value) {
+      this.reservationsWebsocketService.unsetSeat({
+        ...this.reservationsService.selectedSeat.value!.seat,
+        projectionId: this.projectionId!,
+      });
     }
   }
 }
