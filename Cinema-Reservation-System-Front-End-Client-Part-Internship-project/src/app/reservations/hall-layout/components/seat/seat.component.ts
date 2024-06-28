@@ -7,6 +7,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ReservationsService } from '../../../shared/reservations.service';
 import { Reservation } from '../../../../shared/models/reservation.model';
 import { Ticket } from '../../../../shared/models/ticket.model';
+import { ReservationsWebsocketService } from '../../../shared/reservations-websocket.service';
+import { ActivatedRoute } from '@angular/router';
 
 enum SeatStatus {
   SEAT_TAKEN = 'Taken',
@@ -31,15 +33,22 @@ export class SeatComponent implements OnInit {
   seatStatusEnum = SeatStatus;
   seatStatus: SeatStatus = this.seatStatusEnum.SEAT_FREE;
   color: 'green' | 'red' | 'orange' | 'gray' = 'green';
+  projectionId: string | null = null;
 
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private reservationsService: ReservationsService,
-  ) {}
+    private reservationsWebsocketService: ReservationsWebsocketService,
+    private route: ActivatedRoute,
+  ) {
+    this.projectionId = this.route.snapshot.paramMap.get('projectionId');
+  }
 
   ngOnInit(): void {
     this.updateSeatStatus();
+
+    this.subscribeToWebsocketBlockedSeats();
 
     this.reservationsService.selectedSeat.subscribe((selectedSeat) => {
       if (selectedSeat !== null) {
@@ -75,7 +84,8 @@ export class SeatComponent implements OnInit {
     if (this.seat) {
       if (
         this.isReserved(this.seat, this.reservationsService.reservations) ||
-        this.isBought(this.seat, this.reservationsService.tickets)
+        this.isBought(this.seat, this.reservationsService.tickets) ||
+        this.isWebsocketBlocked(this.seat)
       ) {
         this.seatStatus = this.seatStatusEnum.SEAT_TAKEN;
       } else if (isSelected) {
@@ -111,6 +121,21 @@ export class SeatComponent implements OnInit {
   isBought(seat: Seat, tickets: Ticket[]): boolean {
     return tickets.some((ticket) => {
       return ticket.seat === seat._id;
+    });
+  }
+
+  isWebsocketBlocked(seat: Seat) {
+    return this.reservationsWebsocketService.blockedSeats.value.some(
+      (blockedSeat) => {
+        return blockedSeat._id === seat._id;
+      },
+    );
+  }
+
+  subscribeToWebsocketBlockedSeats() {
+    this.reservationsWebsocketService.blockedSeats.subscribe(() => {
+      this.updateSeatStatus();
+      this.updateColor();
     });
   }
 }
