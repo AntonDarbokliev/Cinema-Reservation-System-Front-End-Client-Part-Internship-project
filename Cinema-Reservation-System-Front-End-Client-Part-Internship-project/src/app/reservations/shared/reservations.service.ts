@@ -13,6 +13,7 @@ import { MovieService } from '@shared/services/movie.service';
 import { Projection } from '@shared/models/projection.model';
 import { MenuItem } from '@shared/models/menu-item.model';
 import { SidesService } from './sides.service';
+import { ReservationsWebsocketService } from './reservations-websocket.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,7 @@ export class ReservationsService {
     private authService: AuthenticationService,
     private movieService: MovieService,
     private sidesService: SidesService,
+    private reservationWebsocketService: ReservationsWebsocketService,
   ) {}
 
   baseUrl = environment.apiUrl;
@@ -114,8 +116,17 @@ export class ReservationsService {
                 reservationToSend.foodAndBeverages = foodAndBeverages;
               }
               this.http
-                .post(this.baseUrl + '/reservations', reservationToSend)
-                .subscribe();
+                .post<Reservation>(
+                  this.baseUrl + '/reservations',
+                  reservationToSend,
+                )
+                .subscribe((reservation) => {
+                  this.reservationWebsocketService.reserveSeat(reservation);
+                  // this.reservationWebsocketService.unsetSeat({
+                  //   ...this.selectedSeat.value!.seat,
+                  // projectionId: reservation.projectionId,
+                  // });
+                });
             });
           }
         });
