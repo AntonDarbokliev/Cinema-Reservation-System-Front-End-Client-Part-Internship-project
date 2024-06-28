@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import io, { Socket } from 'socket.io-client';
 import { SocketSeat } from '@shared/models/socket-seat.model';
 import { Reservation } from '@shared/models/reservation.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, share } from 'rxjs';
 import { Ticket } from '@shared/models/ticket.model';
 
 enum SocketEvent {
@@ -16,6 +16,13 @@ enum SocketEvent {
   ERROR = 'err',
 }
 
+interface SocketState {
+  isConnected: boolean;
+  seats: SocketSeat[];
+  reservations: Reservation[];
+  tickets: Ticket[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,6 +32,23 @@ export class ReservationsWebsocketService {
 
   setupSocketConnection() {
     this.socket = io('http://localhost:3000');
+
+    this.socket.on(SocketEvent.CONNECT, (sharedState: SocketState) => {
+      const newBlockedSeats = [...this.blockedSeats.value];
+      for (const seat of sharedState.seats) {
+        newBlockedSeats.push(seat._id);
+      }
+
+      for (const reservation of sharedState.reservations) {
+        newBlockedSeats.push(reservation.seat);
+      }
+
+      for (const ticket of sharedState.tickets) {
+        newBlockedSeats.push(ticket.seat);
+      }
+
+      this.blockedSeats.next(newBlockedSeats);
+    });
 
     this.socket.on(SocketEvent.SET_SEAT, (data: SocketSeat) => {
       const newBlockedSeats = [...this.blockedSeats.value, data._id];
