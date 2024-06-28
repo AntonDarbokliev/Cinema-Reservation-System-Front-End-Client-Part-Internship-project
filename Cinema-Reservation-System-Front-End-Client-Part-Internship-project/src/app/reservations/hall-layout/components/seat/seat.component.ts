@@ -102,7 +102,8 @@ export class SeatComponent implements OnInit {
       this.seatRow &&
       this.seatNumber &&
       !this.isReserved(this.seat, this.reservationsService.reservations) &&
-      !this.isBought(this.seat, this.reservationsService.tickets)
+      !this.isBought(this.seat, this.reservationsService.tickets) && 
+      !this.reservationsWebsocketService.blockedSeats.value.includes(this.seat._id)
     ) {
       this.reservationsService.setSelectedSeat(
         this.seat,
@@ -127,7 +128,7 @@ export class SeatComponent implements OnInit {
   isWebsocketBlocked(seat: Seat) {
     return this.reservationsWebsocketService.blockedSeats.value.some(
       (blockedSeat) => {
-        return blockedSeat._id === seat._id;
+        return blockedSeat === seat._id;
       },
     );
   }
