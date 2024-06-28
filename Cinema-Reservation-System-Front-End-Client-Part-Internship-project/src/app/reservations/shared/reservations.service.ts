@@ -122,10 +122,7 @@ export class ReservationsService {
                 )
                 .subscribe((reservation) => {
                   this.reservationWebsocketService.reserveSeat(reservation);
-                  // this.reservationWebsocketService.unsetSeat({
-                  //   ...this.selectedSeat.value!.seat,
-                  // projectionId: reservation.projectionId,
-                  // });
+                 
                 });
             });
           }

@@ -35,7 +35,8 @@ export class SummaryComponent implements OnInit {
       this.emitErrorToast();
       return 0;
     }
-    this.totalPrice += this.reservationsService.selectedSeat.value.seat.type.price;
+    this.totalPrice +=
+      this.reservationsService.selectedSeat.value.seat.type.price;
 
     Object.keys(this.reservationsService.sidesWithQuantity).forEach((key) => {
       const side = this.sides.find((side) => side._id === key);

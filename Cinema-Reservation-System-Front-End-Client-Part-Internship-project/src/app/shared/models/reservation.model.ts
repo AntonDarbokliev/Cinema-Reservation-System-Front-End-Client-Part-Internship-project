@@ -17,7 +17,7 @@ export interface Reservation {
 
   made: Date;
 
-  projectionId: Projection;
+  projectionId: string;
 
   status: ReservationStatus;
 
