@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -22,6 +22,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() value = '';
   @Input() label = '';
   @Input() type = 'text';
+  @Input() width? = '';
 
   writeValue(value: any) {
     if (value !== undefined) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InputFieldComponent } from '../../shared/input-field/input-field.component';
-import { ButtonComponent } from '../../shared/button/button.component';
+import { InputFieldComponent } from '@shared/components/input-field/input-field.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +17,7 @@ import { AuthenticationService } from '../shared/authentication.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({});
+  loginForm: FormGroup = this.fb.group({});
   formSubmitted = false;
 
   constructor(
