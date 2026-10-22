@@ -1,0 +1,45 @@
+<div class="sides-selection">
+  @for (side of sides; track side._id) {
+    <div
+      class="side my-3 flex w-screen justify-center border-b-2 bg-black text-center md:items-center md:justify-between"
+    >
+      <img
+        [src]="side.image"
+        class="m-4 hidden w-1/2 overflow-hidden rounded-lg md:block md:w-56 md:ml-10"
+      />
+      <p class="text-white w-1/4 hidden md:block">{{ side.description }}</p>
+      <!-- Show img on md screens -->
+      <div class="side-info flex w-1/2 flex-col items-center">
+        <h1 class="text-lg text-white">{{ side.name }}</h1>
+        <h1 class="text-lg font-bold text-white">${{ side.price }}</h1>
+        <div class="quantity-wrapper flex h-10 items-center justify-center">
+          <app-button
+            label="-"
+            (click)="reservationService.decrementItemQuantity(side._id)"
+            width="1.5rem"
+          ></app-button>
+          <app-input-field
+            width="4rem"
+            [value]="reservationService.sidesWithQuantity[side._id] ? reservationService.sidesWithQuantity[side._id].toString() : '0'"
+          ></app-input-field>
+          <app-button
+            label="+"
+            (click)="reservationService.incrementItemQuantity(side._id)"
+            width="1.5rem"
+          ></app-button>
+        </div>
+        <app-button
+          (click)="toggleReadMore(side._id)"
+          label="Read more"
+          width="7.5rem"
+          class="md:hidden"
+        ></app-button>
+        @if (readMoreStates[side._id]) {
+          <div class="read-more">
+            <p class="text-white">{{ side.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

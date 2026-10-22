@@ -1,0 +1,5 @@
+<div class="toasts fixed left-5 top-5">
+  @for (toast of toasts; track toast.message) {
+    <app-toast [toast]="toast"></app-toast>
+  }
+</div>
